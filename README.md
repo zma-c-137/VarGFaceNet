@@ -7,7 +7,7 @@ Link to the original paper: ...
 
 
 ## Base Module
-![]()
+![](https://github.com/zma-c-137/VarGFaceNet/blob/master/img/VarGFaceNet.png)
 
 ## Results
 | Method  | LFW(%)  | CFP-FP(%) | AgeDB-30(%) | deepglint-light(%,TPR@FPR=1e-8) | Flops (M) |
