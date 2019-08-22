@@ -6,8 +6,8 @@ This is a MXNET implementation of VarGFaceNet.
 We achieved 1st place at Light-weight Face Recognition challenge/workshop on ICCV 2019(deepglint-light track)[LFR2019](https://ibug.doc.ic.ac.uk/resources/lightweight-face-recognition-challenge-workshop)
 
 For details, please read the following papers:
-* [VarGFaceNet](???)
-* [VarGNet](https://arxiv.org/abs/1907.05653)
+* [VarGFaceNet: An Efficient Variable Group Convolutional Neural Network for Lightweight Face Recognition](???)
+* [VarGNet: Variable Group Convolutional Neural Network for Efficient Embedded Computing](https://arxiv.org/abs/1907.05653)
 
 
 ## Base Module
@@ -30,7 +30,7 @@ For details, please read the following papers:
 
 ## Citation
 
-If you find InsightFace useful in your research, please consider to cite the following related papers:
+If you find VarGFaceNet useful in your research, please consider to cite the following related papers:
 
 ```
 ???
