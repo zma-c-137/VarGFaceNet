@@ -519,7 +519,7 @@ def get_symbol(**kwargs):
                              setting_params=setting_params,
                              bias=False,
                              name='embed')
-    emb_feat.save('tmp-symbol.json')
+    emb_feat.save('VarGFace-symbol.json')
     return emb_feat
 
 if __name__ == '__main__':
