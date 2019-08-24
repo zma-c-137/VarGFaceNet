@@ -462,11 +462,11 @@ def add_emb_block(data,
                                        eps=bn_eps,
                                        momentum=bn_mom,
                                        use_global_stats=use_global_stats,
-                                       name=name + '_convx_lpointwise_bn')
+                                       name=name + '_convx_pointwise_bn')
     convx_pointwise = Act(data=convx_pointwise,
                           act_type=act_type,
                           name=name + '_convx_pointwise_act')
-    emb_feat = mx.sym.FullyConnected(data=convx_pointwise, num_hidden=emb_size)
+    emb_feat = mx.sym.FullyConnected(data=convx_pointwise, num_hidden=emb_size, name='pre_fc1')
     emb_feat = mx.sym.BatchNorm(data=emb_feat,
                                 fix_gamma=fix_gamma,
                                 eps=bn_eps,
