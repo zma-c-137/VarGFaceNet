@@ -324,7 +324,7 @@ def add_vargnet_conv_block(data,
                                       stride=stride,
                                       dilate=dilate,
                                       with_dilate=with_dilate,
-                                      name=name + 'stage_{}_unit_1'.format(stage))
+                                      name=name + '_stage_{}_unit_1'.format(stage))
     for i in range(units - 1):
         data = vargnet_block(data=data,
                              n_out_ch1=out_channels,
@@ -338,7 +338,7 @@ def add_vargnet_conv_block(data,
                              stride=(1, 1),
                              dilate=dilate,
                              with_dilate=with_dilate,
-                             name=name + 'stage_{}_unit_{}'.format(stage, i + 2))
+                             name=name + '_stage_{}_unit_{}'.format(stage, i + 2))
     return data
 
 
