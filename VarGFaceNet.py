@@ -9,9 +9,9 @@ import mxnet as mx
 
 def Act(data, act_type, name):
     if act_type == 'prelu':
-      body = mx.sym.LeakyReLU(data=data, act_type='prelu', name=name)
+        body = mx.sym.LeakyReLU(data=data, act_type='prelu', name=name)
     else:
-      body = mx.symbol.Activation(data=data, act_type=act_type, name=name)
+        body = mx.symbol.Activation(data=data, act_type=act_type, name=name)
     return body
 
 
@@ -40,6 +40,35 @@ def get_setting_params(**kwargs):
     setting_params['group_base'] = group_base
 
     return setting_params
+
+
+def se_block(data, num_filter, setting_params, name):
+    se_ratio = setting_params['se_ratio']
+    act_type = setting_params['act_type']
+
+    pool1 = mx.sym.Pooling(data=data,
+                           global_pool=True,
+                           pool_type='avg',
+                           name=name + '_se_pool1')
+    conv1 = mx.sym.Convolution(data=pool1,
+                               num_filter=num_filter // se_ratio,
+                               kernel=(1, 1),
+                               stride=(1, 1),
+                               pad=(0, 0),
+                               name=name + "_se_conv1")
+    act1 = Act(data=conv1, act_type=act_type, name=name + '_se_act1')
+
+    conv2 = mx.sym.Convolution(data=act1,
+                               num_filter=num_filter,
+                               kernel=(1, 1),
+                               stride=(1, 1),
+                               pad=(0, 0),
+                               name=name + "_se_conv2")
+    act2 = mx.symbol.Activation(data=conv2,
+                                act_type='sigmoid',
+                                name=name + "_se_sigmoid")
+    out_data = mx.symbol.broadcast_mul(data, act2)
+    return out_data
 
 
 def separable_conv2d(data,
@@ -126,7 +155,6 @@ def vargnet_block(data,
                   with_dilate=False,
                   name=None):
     use_se = setting_params['use_se']
-    se_ratio = setting_params['se_ratio']
     act_type = setting_params['act_type']
 
     out_channels_1 = int(n_out_ch1 * multiplier)
@@ -178,30 +206,10 @@ def vargnet_block(data,
                                  name=name + '_sep2_data')
 
     if use_se:
-        body = mx.sym.Pooling(data=sep2_data,
-                              global_pool=True,
-                              pool_type='avg',
-                              name=name + '_se_pool1')
-        body = mx.sym.Convolution(data=body,
-                                  num_filter=out_channels_3 // se_ratio,
-                                  kernel=(1, 1),
-                                  stride=(1, 1),
-                                  pad=(0, 0),
-                                  name=name + "_se_conv1",
-                                  )
-        body = Act(data=body, act_type=act_type, name=name + '_se_act1')
-
-        body = mx.sym.Convolution(data=body,
-                                  num_filter=out_channels_3,
-                                  kernel=(1, 1),
-                                  stride=(1, 1),
-                                  pad=(0, 0),
-                                  name=name + "_se_conv2",
-                                  )
-        body = mx.symbol.Activation(data=body,
-                                    act_type='sigmoid',
-                                    name=name + "_se_sigmoid")
-        sep2_data = mx.symbol.broadcast_mul(sep2_data, body)
+        sep2_data = se_block(data=sep2_data,
+                             num_filter=out_channels_3,
+                             setting_params=setting_params,
+                             name=name)
 
     out_data = sep2_data + short_cut
     out_data = Act(data=out_data, act_type=act_type, name=name + '_out_data_act')
@@ -511,7 +519,6 @@ def get_symbol(**kwargs):
                                       dilate=dilate_list[i],
                                       with_dilate=with_dilate_list[i],
                                       name="vargface")
-        
     emb_feat = add_emb_block(data=body,
                              input_channels=filter_list[3],
                              last_channels=last_channels,
@@ -521,6 +528,7 @@ def get_symbol(**kwargs):
                              name='embed')
     emb_feat.save('VarGFace-symbol.json')
     return emb_feat
+
 
 if __name__ == '__main__':
     get_symbol()
