@@ -1,5 +1,9 @@
 # VarGFaceNet
 
+## License
+
+The code of VarGFaceNet is released under the MIT License. There is no limitation for both acadmic and commercial usage.
+
 ## Introduction
 
 This is a MXNET implementation of VarGFaceNet.
@@ -33,7 +37,12 @@ For details, please read the following papers:
 If you find VarGFaceNet useful in your research, please consider to cite the following related papers:
 
 ```
-???
+@article{vargfacenet,
+ author = {Yan, Mengjia and Zhao, Mengao and Xu, Zining and Zhang, Qian and Wang, Guoli and Su, Zhizhong},
+ title = {VarGFaceNet: An Efficient Variable Group Convolutional Neural Network for Lightweight Face Recognition},
+ journal = {In Proceedings of the IEEE International Conference on Computer Vision Workshops},
+ year = 2019
+}
 @article{zhang2019vargnet,
   title={VarGNet: Variable Group Convolutional Neural Network for Efficient Embedded Computing},
   author={Zhang, Qian and Li, Jianjun and Yao, Meng and Song, Liangchen and Zhou, Helong and Li, Zhichao and Meng, Wenming and Zhang, Xuezhi and Wang, Guoli},
