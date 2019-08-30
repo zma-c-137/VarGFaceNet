@@ -15,7 +15,6 @@ For details, please read the following papers:
 
 
 ## Base Module
-![](https://github.com/zma-c-137/VarGFaceNet/blob/master/img/VarGFaceNet.png)
 
 ## Results
 
