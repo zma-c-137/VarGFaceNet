@@ -10,7 +10,7 @@ This is a MXNET implementation of VarGFaceNet.
 We achieved 1st place at Light-weight Face Recognition challenge/workshop on ICCV 2019(deepglint-light track)[LFR2019](https://ibug.doc.ic.ac.uk/resources/lightweight-face-recognition-challenge-workshop)
 
 For details, please read the following papers:
-* [VarGFaceNet: An Efficient Variable Group Convolutional Neural Network for Lightweight Face Recognition](???)
+* [VarGFaceNet: An Efficient Variable Group Convolutional Neural Network for Lightweight Face Recognition](https://arxiv.org/abs/1910.04985)
 * [VarGNet: Variable Group Convolutional Neural Network for Efficient Embedded Computing](https://arxiv.org/abs/1907.05653)
 
 
